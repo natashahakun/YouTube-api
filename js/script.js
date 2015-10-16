@@ -8,22 +8,23 @@ $(function(){
 
 function getRequest(searchTerm){
   var params = {
-    s: searchTerm,
-    r: 'json'
+    part: 'snippet',
+    key: 'AIzaSyBXlO-ld1Qsas4EDAyFYqoTSwTpDloAOHI',
+    q: searchTerm
   };
-  url = 'http://www.youtube.com';
+  url = 'https://www.googleapis.com/youtube/v3/search';
 
   $.getJSON(url, params, function(data){
-    showResults(data.Search);
+    showResults(data);
   });
 }
 
 function showResults(results){
   console.log(results);
   var html = "";
-  $.each(results, function(index,value){
-    html += '<p>' + value.Title + '</p>';
-    console.log(value.Title);
+  $.each(results.items, function(index,value){
+    html += '<p>' + value.snippet.title + '</p>';
+    console.log(value.snippet.title);
   });
   $('#search-results').html(html);
 }
